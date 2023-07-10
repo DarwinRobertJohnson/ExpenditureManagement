@@ -10,8 +10,11 @@ public class writer extends dbConnect{
 
 
     //Creates a table of required date when needed
-    public void createTable(String date){
+    public void createTable(String date) throws Exception{
+        String query="create table "+date+"(ExpenditureName text,ExpAmount float)";
 
+        writerStatement=con.prepareStatement(query);
+        writerStatement.executeUpdate();
     }
 
 
@@ -45,7 +48,7 @@ public class writer extends dbConnect{
 
     //Writes the given data into the correct table  ---Actual Implementation 
     public void write(String expName,float expAmount,String date) throws Exception{
-        date="_09_07_2023";
+        //date="_09_07_2023";
 
         if(!tableExists(date)){
             createTable(date);
