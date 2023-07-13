@@ -5,6 +5,7 @@ public class dbConnect{
 
     Connection con;
     PreparedStatement writerStatement;
+    PreparedStatement readerStatement;
     String query;
 
     public dbConnect() throws Exception{
@@ -18,5 +19,10 @@ public class dbConnect{
     public void updateDate(String date) throws Exception{
         query="insert into "+date+" values(?,?)";
         writerStatement=con.prepareStatement(query);
+    }
+
+    //Converts the date to required form for database purposes
+    public static String processDate(String date){
+        return ("_"+date.substring(0,2)+"_"+date.substring(3,5)+"_"+date.substring(6,10));
     }
 }
