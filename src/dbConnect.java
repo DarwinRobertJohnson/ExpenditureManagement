@@ -25,4 +25,22 @@ public class dbConnect{
     public static String processDate(String date){
         return ("_"+date.substring(0,2)+"_"+date.substring(3,5)+"_"+date.substring(6,10));
     }
+
+
+    //Checks if a table with given date exists
+    public boolean tableExists(String date) throws Exception{
+
+        DatabaseMetaData metaData=con.getMetaData();
+        ResultSet tableList=metaData.getTables(null,null,null,new String[]{"TABLE"});
+
+        while(tableList.next()){
+        
+        String tableName=tableList.getString("TABLE_NAME");
+
+        if(tableName==date)
+            return true;
+        }
+        
+        return false;
+    }
 }

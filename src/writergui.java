@@ -36,12 +36,13 @@ class writer extends dbConnect{
 
         DatabaseMetaData metaData=con.getMetaData();
         ResultSet tableList=metaData.getTables(null,null,null,new String[]{"TABLE"});
+        date=processDate(date);
 
         while(tableList.next()){
         
         String tableName=tableList.getString("TABLE_NAME");
 
-        if(tableName==date)
+        if(tableName.equals(date))
             return true;
         }
         
@@ -70,16 +71,20 @@ class writer extends dbConnect{
         //date="_09_07_2023";
 
         if(!tableExists(date)){
+            System.out.println("table doesn't exist");
             createTable(date);
         }
 
+        System.out.println("error before processing date");
         date=processDate(date);
-
+        System.out.println("error before update date");
         updateDate(date);
+        System.out.println("Error before update statement");
         writerStatement.setString(1,expName);
         writerStatement.setFloat(2,expAmount);
-
+        System.out.println("insertion begins");
         writerStatement.executeUpdate();
+        System.out.println("insertion complete");
     }
 
 }
@@ -141,8 +146,11 @@ public class writergui extends JFrame implements ActionListener{
 
         //System.out.println(date);
         try{
-            if(!expenditureamount.equals("") && !expenditureamount.equals("") && selectedDate!=null)
+            if(!expenditureamount.equals("") && !expenditureamount.equals("") && selectedDate!=null){
+                System.out.println("error before writing");
                 dataWriter.write(expenditurename,expenditureamount,date);
+                System.out.println("error after writing");
+            }
             else{
                 newError=new error("Fill all the details");
             }

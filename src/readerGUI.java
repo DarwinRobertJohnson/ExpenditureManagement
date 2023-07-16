@@ -34,6 +34,7 @@ public class readerGUI extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    //when submit button is clicked data of the selected date is loaded and displayed
     public void actionPerformed(ActionEvent e){
         Date selectedDate=selectDate.getDate();
         SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");

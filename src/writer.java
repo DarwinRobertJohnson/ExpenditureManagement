@@ -20,24 +20,6 @@ public class writer extends dbConnect{
 
 
 
-    //Checks if a table with given date exists
-    public boolean tableExists(String date) throws Exception{
-
-        DatabaseMetaData metaData=con.getMetaData();
-        ResultSet tableList=metaData.getTables(null,null,null,new String[]{"TABLE"});
-
-        while(tableList.next()){
-        
-        String tableName=tableList.getString("TABLE_NAME");
-
-        if(tableName==date)
-            return true;
-        }
-        
-        return false;
-    }
-
-
     //Writes some default values into table         ---Test Purpose Only
     public void write() throws Exception{
         writerStatement.setString(1,"abcd");
