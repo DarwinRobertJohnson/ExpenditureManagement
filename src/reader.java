@@ -5,28 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 
-class ExpenseData{
-    String ExpenseName;
-    Float ExpenseAmount;
-    
-    public ExpenseData(String ExpenseName,Float ExpenseAmount){
-        this.ExpenseName=ExpenseName;
-        this.ExpenseAmount=ExpenseAmount;
-    }
 
-    public void setData(String ExpenseName,Float ExpenseAmount){
-        this.ExpenseName=ExpenseName;
-        this.ExpenseAmount=ExpenseAmount;
-    }
-
-    public String getName(){
-        return ExpenseName;
-    }
-
-    public Float getAmount(){
-        return ExpenseAmount;
-    }
-}
 
 
 
@@ -36,10 +15,12 @@ public class reader extends dbConnect{
     ArrayList<ExpenseData> expData;
     ExpenseData dummyExpData;
     String data[][];
+    Float total;
 
-
+    public reader() throws Exception{}
 
     public reader(String date) throws Exception{
+        total=new Float(0);
         expData=new ArrayList<>();
         date=processDate(date);
         String query="select * from "+date;
@@ -49,7 +30,8 @@ public class reader extends dbConnect{
     }
 
     //Loads a particular date's expense data into readData
-    public void getDataFromDate(String date){
+    public void getDataFromDate(String date) throws Exception{
+        total=new Float(0);
         expData=new ArrayList<>();
         date=processDate(date);
         String query="select * from "+date;
@@ -63,10 +45,17 @@ public class reader extends dbConnect{
         while(readData.next()){
             String name=readData.getString("ExpenditureName");
             Float amount=readData.getFloat("ExpAmount");
+            total+=amount;
             dummyExpData=new ExpenseData(name,amount);          
             expData.add(dummyExpData);
         }
         
+    }
+
+    public Float getTotalFromDate(String date) throws Exception{
+        getDataFromDate(date);
+
+        return total;
     }
 
 

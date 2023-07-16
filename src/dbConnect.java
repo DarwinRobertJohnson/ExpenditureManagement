@@ -1,6 +1,31 @@
 import java.lang.*;
 import java.sql.*;
 
+
+class ExpenseData{
+    String ExpenseName;
+    Float ExpenseAmount;
+    
+    public ExpenseData(String ExpenseName,Float ExpenseAmount){
+        this.ExpenseName=ExpenseName;
+        this.ExpenseAmount=ExpenseAmount;
+    }
+
+    public void setData(String ExpenseName,Float ExpenseAmount){
+        this.ExpenseName=ExpenseName;
+        this.ExpenseAmount=ExpenseAmount;
+    }
+
+    public String getName(){
+        return ExpenseName;
+    }
+
+    public Float getAmount(){
+        return ExpenseAmount;
+    }
+}
+
+
 public class dbConnect{
 
     Connection con;
@@ -37,8 +62,9 @@ public class dbConnect{
         
         String tableName=tableList.getString("TABLE_NAME");
 
-        if(tableName==date)
+        if(tableName.equals(date))
             return true;
+        
         }
         
         return false;
