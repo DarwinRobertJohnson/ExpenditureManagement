@@ -1,7 +1,7 @@
 #!
 
 
-javac -d ../analyser/ -classpath ".:../lib/*" tester.java
+javac -d ../analyser/ -classpath ".:../lib/*" analyserGUI.java
 
 cd ../analyser/
-java -classpath ".:../lib/*" tester
+java -classpath ".:../lib/*" analyserGUI
