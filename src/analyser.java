@@ -29,9 +29,11 @@ public class analyser extends reader{
     }
 
     //Gets the total from a starting date to ending date,total for day wise is also displayed
-    public void getDataFromDateRange(String startDate,String endDate) throws Exception{
+    public String[][] getDataFromDateRange(String startDate,String endDate) throws Exception{
+        
+        String dummy[][]=new String[1][1];
         if(startDate.equals(endDate))
-            return;
+            return dummy;
         
         
         String date=startDate;
@@ -55,6 +57,21 @@ public class analyser extends reader{
             System.out.print(".");
         }
         System.out.println("Data acquired "+expenseData.size());
+        int length=expenseData.size();
+        data=new String[length+1][2];
+        Float total=new Float(0);
+
+        //Insert the data from arrayList into string list
+
+        for(int i=0;i<length;i++){
+            data[i][0]=expenseData.get(i).getName();
+            data[i][1]=expenseData.get(i).getAmount().toString();
+            total+=expenseData.get(i).getAmount();
+        }
+        data[length][0]="Total";
+        data[length][1]=total.toString();
+
+        return data;
 
     }
 }

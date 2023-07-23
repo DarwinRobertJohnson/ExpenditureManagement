@@ -20,7 +20,7 @@ class gui extends JFrame implements ActionListener{
     JButton submitButton;
     analyser Analyser;
 
-    public gui(){
+    public gui() throws Exception{
         
         Analyser=new analyser();
 
@@ -51,8 +51,22 @@ class gui extends JFrame implements ActionListener{
         String endDate=dateFormat.format(selectedDate);
 
         System.out.println(startDate+" "+endDate);
+        String data[][];
+        try{
+        data=Analyser.getDataFromDateRange(startDate,endDate);
+        }catch(Exception y){
+            System.out.println("Error Getting Data");
+            data=new String[1][1];
+            data[0][0]="No data found";
+        }
+        //Displaying the data gotten
 
-        String data[][]=Analyser.getDataFromDateRange(startDate,endDate);
+        JFrame dataFrame=new JFrame("Analysis of given date range");
+        String title[]={"Dates","Total"};
+        JTable content=new JTable(data,title);
+        dataFrame.add(content);
+        dataFrame.setVisible(true);
+        dataFrame.pack();
     }
 }
 
@@ -62,7 +76,7 @@ class gui extends JFrame implements ActionListener{
 public class analyserGUI{
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
         gui myGui=new gui();
     }
 }
